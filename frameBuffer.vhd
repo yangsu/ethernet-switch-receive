@@ -4,13 +4,13 @@ USE ieee.numeric_std.all;
 
 ENTITY frameBuffer IS
 	PORT (
-		aclr			:IN		STD_LOGIC;
-		clk25			:IN		STD_LOGIC;
-		clk50			:IN		STD_LOGIC;
-		read_enable		:IN		STD_LOGIC;
-		write_enable	:IN		STD_LOGIC;
-		data_in			:IN		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		data_out		:OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
+		aclr			:	IN		STD_LOGIC;
+		clk25			:	IN		STD_LOGIC;
+		clk50			:	IN		STD_LOGIC;
+		read_enable	:	IN		STD_LOGIC;
+		write_enable	:	IN		STD_LOGIC;
+		data_in		:	IN		STD_LOGIC_VECTOR(3 DOWNTO 0);
+		data_out		:	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END frameBuffer;
 
@@ -18,17 +18,17 @@ ARCHITECTURE buff OF frameBuffer IS
 	COMPONENT fifo8dc IS
 	PORT
 	(
-		aclr		: IN STD_LOGIC  := '0';
-		data		: IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-		rdclk		: IN STD_LOGIC ;
-		rdreq		: IN STD_LOGIC ;
-		wrclk		: IN STD_LOGIC ;
-		wrreq		: IN STD_LOGIC ;
-		q			: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-		rdempty		: OUT STD_LOGIC ;
-		rdusedw		: OUT STD_LOGIC_VECTOR (6 DOWNTO 0);
-		wrfull		: OUT STD_LOGIC ;
-		wrusedw		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
+		aclr		:	IN		STD_LOGIC  := '0';
+		data		:	IN		STD_LOGIC_VECTOR (3 DOWNTO 0);
+		rdclk		:	IN		STD_LOGIC ;
+		rdreq		:	IN		STD_LOGIC ;
+		wrclk		:	IN		STD_LOGIC ;
+		wrreq		:	IN		STD_LOGIC ;
+		q			:	OUT	STD_LOGIC_VECTOR (7 DOWNTO 0);
+		rdempty	:	OUT	STD_LOGIC ;
+		rdusedw	:	OUT	STD_LOGIC_VECTOR (6 DOWNTO 0);
+		wrfull		:	OUT	STD_LOGIC ;
+		wrusedw	:	OUT	STD_LOGIC_VECTOR (7 DOWNTO 0)
 	);
 	END COMPONENT;
 
@@ -45,10 +45,10 @@ BEGIN
 		wrclk		=>	clk25,
 		wrreq		=>	write_enable,
 		q			=>	data_out,
-		rdempty		=>	buffer_empty,
-		rdusedw		=> 	discard1,
+		rdempty	=>	buffer_empty,
+		rdusedw	=> 	discard1,
 		wrfull		=>	buffer_full,
-		wrusedw		=> 	discard2
+		wrusedw	=> 	discard2
 	);
 
 	PROCESS(clk25, write_enable)

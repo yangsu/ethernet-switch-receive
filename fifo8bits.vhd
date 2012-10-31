@@ -1,25 +1,25 @@
 --	================================================================
 --	system description
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_misc.all;
-use work.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_misc.all;
+USE work.all;
 
-entity fifo8bits is port	(
-			aclr		:in		std_logic;
-			clk		:in		std_logic;
-			data	:in		std_logic_vector (7 downto 0);
-			q		:out	std_logic_vector (7 downto 0);
-			rdreq	:in		std_logic;
-			wrreq	:in		std_logic;
-			empty	:out	std_logic
+ENTITY fifo8bits IS PORT	(
+	aclr	:IN		STD_LOGIC;
+	clk		:IN		STD_LOGIC;
+	data	:IN		STD_LOGIC_VECTOR (7 DOWNTO 0);
+	q		:OUT	STD_LOGIC_VECTOR (7 DOWNTO 0);
+	rdreq	:IN		STD_LOGIC;
+	wrreq	:IN		STD_LOGIC;
+	empty	:OUT	STD_LOGIC
 );
-end fifo8bits;
+END fifo8bits;
 
-architecture structure of fifo8bits is
+ARCHITECTURE structure OF fifo8bits IS
 
-begin
-	
-	
-end architecture;
+BEGIN
+
+
+END ARCHITECTURE;
