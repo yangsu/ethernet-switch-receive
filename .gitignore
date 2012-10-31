@@ -19,3 +19,9 @@ Desktop.ini
 db
 incremental_db
 *.qsf
+*.rpt
+*.summary
+*.done
+*.pof
+*.sof
+*.pin
