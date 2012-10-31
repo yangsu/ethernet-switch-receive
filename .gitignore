@@ -19,6 +19,7 @@ Desktop.ini
 db
 incremental_db
 #*.qsf
+*.bak
 *.rpt
 *.summary
 *.done
