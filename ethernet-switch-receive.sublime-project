@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "/",
+			"folder_exclude_patterns": ["db", "incremental_db"],
+			"file_exclude_patterns": ["*.rpt", "*.summary", "*.done", "*.pof", "*.sof", "*.pin", "*.qsf", "*.qpf", "*.qip", "*.cmp", "*.bak", "*.vwf", "*.sublime-workspace"]
+		}
+	],
+	"settings":
+	{
+		"tab_size": 2,
+		"translate_tabs_to_spaces": false,
+		"trim_trailing_white_space_on_save": true
+	}
+}

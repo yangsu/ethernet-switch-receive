@@ -25,3 +25,8 @@ incremental_db
 *.pof
 *.sof
 *.pin
+
+###############
+## Sublime Text 2
+###############
+*.sublime-workspace
