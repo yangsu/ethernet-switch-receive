@@ -31,7 +31,7 @@ BEGIN
 	END PROCESS;
 
 -- Next State Logic
-	PROCESS (inputProcessor_currentState, frame_start, frame_end)
+	PROCESS (inputProcessor_currentState, frame_start, frame_end, hold_count)
 	BEGIN
 		CASE inputProcessor_currentState IS
 			WHEN IDLE_STATE =>
@@ -39,11 +39,11 @@ BEGIN
 				ELSE inputProcessor_nextState <= IDLE_STATE;
 				END IF;
 			WHEN RECEIVING_STATE =>
-				IF frame_end = '0' THEN inputProcessor_nextState <= HOLD_STATE;
+				IF frame_end = '1' THEN inputProcessor_nextState <= HOLD_STATE;
 				ELSE inputProcessor_nextState <= RECEIVING_STATE;				
 				END IF;
 			WHEN HOLD_STATE =>
-				if hold_count = "0110" then inputProcessor_nextState <= IDLE_STATE;
+				if hold_count = "0110" then inputProcessor_nextState <= RESET_STATE;
 				ELSE inputProcessor_nextState <= HOLD_STATE;
 				END IF;
 			WHEN RESET_STATE =>
