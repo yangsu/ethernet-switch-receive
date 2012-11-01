@@ -33,13 +33,13 @@ BEGIN
 	-----------------------------------------------------------------------------------------------------------------------
 	--generating transmit_countdown using down counter
 		transmit_down_counter: counter PORT MAP (
-			clk_en	=>	transmit_valid ,
-			cnt_en	=>	transmit_valid,
-			aclr	=>	aclr,
-			clock	=>	clk ,
-			data	=>	frame_length ,
-			sload	=>	transmit_start ,
-			q		=>	transmit_countdown
+			cnt_en		=>	transmit_valid,
+			aclr		=>	aclr,
+			clock		=>	clk ,
+			data		=>	frame_length ,
+			sload		=>	transmit_start ,
+			updown	=> '0',
+			q			=>	transmit_countdown
 		);
 	-----------------------------------------------------------------------------------------------------------------------
 	--generating instruction to transmit

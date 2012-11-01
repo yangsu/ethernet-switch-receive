@@ -18,11 +18,11 @@ ARCHITECTURE arch of holdCounter IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC ;
-		clk_en		: IN STD_LOGIC ;
 		clock		: IN STD_LOGIC ;
 		cnt_en		: IN STD_LOGIC ;
 		data		: IN STD_LOGIC_VECTOR (11 DOWNTO 0);
 		sload		: IN STD_LOGIC ;
+		updown	: IN STD_LOGIC ;
 		q			: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 	);
 	END COMPONENT;
@@ -32,13 +32,13 @@ ARCHITECTURE arch of holdCounter IS
 BEGIN
 
 	counter0: counter PORT MAP(
-		aclr 	=> 	aclr,
-		clk_en	=> 	'1',
-		clock	=>	clk,
-		cnt_en	=>	enable AND NOT isEqual12,
-		data	=> "000000000000",
-		sload	=> '0',
-		q		=> tempCount
+		aclr 		=> 	aclr,
+		clock		=>	clk,
+		cnt_en		=>	enable AND NOT isEqual12,
+		data		=> "000000000000",
+		sload		=> '0',
+		updown	=> '1',
+		q			=> tempCount
 	);
 
 	isEqual12 <= '1' WHEN (tempCount = "000000001100") ELSE '0';
