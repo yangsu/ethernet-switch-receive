@@ -26,6 +26,7 @@ incremental_db
 *.pof
 *.sof
 *.pin
+*.qws
 
 ###############
 ## Sublime Text 2
