@@ -28,16 +28,20 @@ SIGNAL signal_data_out		:	STD_LOGIC_VECTOR(7 DOWNTO 0);
 SIGNAL signal_readBuffer	:	STD_LOGIC;
 SIGNAL signal_crc					:	STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL signal_shifter			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL crc_valid					:	STD_LOGIC;
 
 	COMPONENT inputProcessor_stateController IS
-		PORT (	aclr		:	IN STD_LOGIC;
-				clk			:	IN STD_LOGIC;
-				frame_start	:	IN STD_LOGIC;
-				frame_valid	:	IN STD_LOGIC; -- Output of SFD module, HIGH once SFD is detected
-				hold_count	:	IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-				receiving	:	OUT STD_LOGIC; -- HIGH if currently in receiving state; will act as enable signal for other modules
-				reset		:	OUT STD_LOGIC; -- HIGH if transitioned into IDLE state; resets all components for next frame
-				hold		:	OUT STD_LOGIC); -- HIGH if transitioned into HOLD state; must remain in state until hold_count = 12
+		PORT (
+			aclr				:	IN 	STD_LOGIC;
+			clk					:	IN 	STD_LOGIC;
+			frame_start	:	IN 	STD_LOGIC;
+			frame_valid	:	IN 	STD_LOGIC; -- Output of SFD module, HIGH once SFD is detected
+			crc_valid 	: IN 	STD_LOGIC;
+			hold_count	:	IN 	STD_LOGIC_VECTOR(3 DOWNTO 0);
+			receiving		:	OUT STD_LOGIC; -- HIGH if currently in receiving state; will act as enable signal for other modules
+			reset				:	OUT STD_LOGIC; -- HIGH if transitioned into IDLE state; resets all components for next frame
+			hold				:	OUT STD_LOGIC-- HIGH if transitioned into HOLD state; must remain in state until  hold_count = 12
+		);
 	END COMPONENT;
 
 	COMPONENT sfdChecker IS
@@ -86,7 +90,7 @@ SIGNAL signal_shifter			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
 
 BEGIN
 
-	Stage1: inputProcessor_stateController PORT MAP (aclr, clk50, signal_frame_start, data_in_valid, signal_hold_count, signal_receiving, signal_reset, signal_hold);
+	Stage1: inputProcessor_stateController PORT MAP (aclr, clk50, signal_frame_start, data_in_valid, crc_valid, signal_hold_count, signal_receiving, signal_reset, signal_hold);
 	Stage2: sfdChecker PORT MAP (aclr OR signal_reset, clk25, data_in_valid, data_in, signal_frame_start);
 	Stage3: frameBuffer PORT MAP (aclr OR signal_reset, clk25, clk50, '1', signal_receiving, data_in, signal_data_out);
 	Stage4: crcChecker PORT MAP (aclr OR signal_reset, clk25, signal_receiving, data_in, signal_crc);
@@ -101,5 +105,6 @@ BEGIN
 	signal_shifter(31 DOWNTO 4) <= signal_shifter(27 DOWNTO 0);
 	signal_shifter(3 DOWNTO 0) <= data_in;
 
-	crc <= '1' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '0';
+	crc_valid <= '1' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '0';
+	crc <= crc_valid;
 END subsystem_level_design;
