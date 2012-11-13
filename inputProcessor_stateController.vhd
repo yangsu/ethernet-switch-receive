@@ -5,8 +5,8 @@ USE ieee.numeric_std.all;
 ENTITY inputProcessor_stateController IS
 	PORT (	aclr		:	IN STD_LOGIC;
 			clk			:	IN STD_LOGIC;
-			frame_start	:	IN STD_LOGIC; -- Output of SFD module, HIGH once SFD is detected
-			frame_end	:	IN STD_LOGIC; -- Input from data_in_valid
+			frame_start	:	IN STD_LOGIC;
+			frame_valid	:	IN STD_LOGIC; -- Output of SFD module, HIGH once SFD is detected
 			hold_count	:	IN STD_LOGIC_VECTOR(3 DOWNTO 0);
 			receiving	:	OUT STD_LOGIC; -- HIGH if currently in receiving state; will act as enable signal for other modules
 			reset		:	OUT STD_LOGIC; -- HIGH if transitioned into IDLE state; resets all components for next frame
@@ -31,7 +31,7 @@ BEGIN
 	END PROCESS;
 
 -- Next State Logic
-	PROCESS (inputProcessor_currentState, frame_start, frame_end, hold_count)
+	PROCESS (inputProcessor_currentState, frame_start, frame_valid, hold_count)
 	BEGIN
 		CASE inputProcessor_currentState IS
 			WHEN IDLE_STATE =>
@@ -39,7 +39,7 @@ BEGIN
 				ELSE inputProcessor_nextState <= IDLE_STATE;
 				END IF;
 			WHEN RECEIVING_STATE =>
-				IF frame_end = '1' THEN inputProcessor_nextState <= HOLD_STATE;
+				IF frame_valid = '0' THEN inputProcessor_nextState <= HOLD_STATE;
 				ELSE inputProcessor_nextState <= RECEIVING_STATE;				
 				END IF;
 			WHEN HOLD_STATE =>

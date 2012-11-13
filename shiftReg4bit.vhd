@@ -4,7 +4,7 @@
 -- MODULE: lpm_shiftreg 
 
 -- ============================================================
--- File Name: shiftReg2bit.vhd
+-- File Name: shiftReg4bit.vhd
 -- Megafunction Name(s):
 -- 			lpm_shiftreg
 --
@@ -39,21 +39,21 @@ USE ieee.std_logic_1164.all;
 LIBRARY lpm;
 USE lpm.all;
 
-ENTITY shiftReg2bit IS
+ENTITY shiftReg4bit IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC ;
 		clock		: IN STD_LOGIC ;
 		enable		: IN STD_LOGIC ;
 		shiftin		: IN STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
+		q		: OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
 	);
-END shiftReg2bit;
+END shiftReg4bit;
 
 
-ARCHITECTURE SYN OF shiftreg2bit IS
+ARCHITECTURE SYN OF shiftreg4bit IS
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (1 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (3 DOWNTO 0);
 
 
 
@@ -67,19 +67,19 @@ ARCHITECTURE SYN OF shiftreg2bit IS
 			enable	: IN STD_LOGIC ;
 			aclr	: IN STD_LOGIC ;
 			clock	: IN STD_LOGIC ;
-			q	: OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
+			q	: OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
 			shiftin	: IN STD_LOGIC 
 	);
 	END COMPONENT;
 
 BEGIN
-	q    <= sub_wire0(1 DOWNTO 0);
+	q    <= sub_wire0(3 DOWNTO 0);
 
 	lpm_shiftreg_component : lpm_shiftreg
 	GENERIC MAP (
 		lpm_direction => "LEFT",
 		lpm_type => "LPM_SHIFTREG",
-		lpm_width => 2
+		lpm_width => 4
 	)
 	PORT MAP (
 		enable => enable,
@@ -112,24 +112,24 @@ END SYN;
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 -- Retrieval info: PRIVATE: SerialShiftInput NUMERIC "1"
 -- Retrieval info: PRIVATE: SerialShiftOutput NUMERIC "0"
--- Retrieval info: PRIVATE: nBit NUMERIC "2"
+-- Retrieval info: PRIVATE: nBit NUMERIC "4"
 -- Retrieval info: CONSTANT: LPM_DIRECTION STRING "LEFT"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "LPM_SHIFTREG"
--- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "2"
+-- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "4"
 -- Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT NODEFVAL aclr
 -- Retrieval info: USED_PORT: clock 0 0 0 0 INPUT NODEFVAL clock
 -- Retrieval info: USED_PORT: enable 0 0 0 0 INPUT NODEFVAL enable
--- Retrieval info: USED_PORT: q 0 0 2 0 OUTPUT NODEFVAL q[1..0]
+-- Retrieval info: USED_PORT: q 0 0 4 0 OUTPUT NODEFVAL q[3..0]
 -- Retrieval info: USED_PORT: shiftin 0 0 0 0 INPUT NODEFVAL shiftin
 -- Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
--- Retrieval info: CONNECT: q 0 0 2 0 @q 0 0 2 0
+-- Retrieval info: CONNECT: q 0 0 4 0 @q 0 0 4 0
 -- Retrieval info: CONNECT: @enable 0 0 0 0 enable 0 0 0 0
 -- Retrieval info: CONNECT: @shiftin 0 0 0 0 shiftin 0 0 0 0
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: LIBRARY: lpm lpm.lpm_components.all
--- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg2bit.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg2bit.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg2bit.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg2bit.bsf FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg2bit_inst.vhd FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg4bit.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg4bit.inc FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg4bit.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg4bit.bsf FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL shiftReg4bit_inst.vhd FALSE
 -- Retrieval info: LIB_FILE: lpm

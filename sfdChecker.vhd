@@ -5,6 +5,7 @@ USE ieee.numeric_std.all;
 ENTITY sfdChecker IS
 	PORT (	aclr		:	IN STD_LOGIC;
 			clk			:	IN STD_LOGIC;
+			enable		: 	IN STD_LOGIC;
 			data_in		:	IN STD_LOGIC_VECTOR(3 DOWNTO 0);
 			frame_start	:	OUT STD_LOGIC);
 END sfdChecker;
@@ -23,18 +24,18 @@ ARCHITECTURE sfd OF sfdChecker IS
 		(
 			aclr		: IN STD_LOGIC ;
 			clock		: IN STD_LOGIC ;
+			enable		: IN STD_LOGIC ;
 			shiftin		: IN STD_LOGIC ;
 			q		: OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
 		);
 	END COMPONENT;
-	
-	
+		
 BEGIN
 
-	stage0: shiftReg2bit PORT MAP (aclr, clk, data_in(0), shifter0);
-	stage1: shiftReg2bit PORT MAP (aclr, clk, data_in(1), shifter1);
-	stage2: shiftReg2bit PORT MAP (aclr, clk, data_in(2), shifter2);
-	stage3: shiftReg2bit PORT MAP (aclr, clk, data_in(3), shifter3);
+	stage0: shiftReg2bit PORT MAP (aclr, clk, enable, data_in(0), shifter0);
+	stage1: shiftReg2bit PORT MAP (aclr, clk, enable, data_in(1), shifter1);
+	stage2: shiftReg2bit PORT MAP (aclr, clk, enable, data_in(2), shifter2);
+	stage3: shiftReg2bit PORT MAP (aclr, clk, enable, data_in(3), shifter3);
 	stage4:	byte(7) <= shifter3(1);
 			byte(6) <= shifter2(1);
 			byte(5) <= shifter1(1);
