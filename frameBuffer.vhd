@@ -7,9 +7,9 @@ ENTITY frameBuffer IS
 		aclr			:	IN		STD_LOGIC;
 		clk25			:	IN		STD_LOGIC;
 		clk50			:	IN		STD_LOGIC;
-		read_enable	:	IN		STD_LOGIC;
+		read_enable		:	IN		STD_LOGIC;
 		write_enable	:	IN		STD_LOGIC;
-		data_in		:	IN		STD_LOGIC_VECTOR(3 DOWNTO 0);
+		data_in			:	IN		STD_LOGIC_VECTOR(3 DOWNTO 0);
 		data_out		:	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END frameBuffer;

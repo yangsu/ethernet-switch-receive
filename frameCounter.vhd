@@ -12,6 +12,7 @@ ENTITY frameCounter IS
 END frameCounter;
 
 ARCHITECTURE arch OF frameCounter IS
+SIGNAL signal_q		:	STD_LOGIC_VECTOR(11 DOWNTO 0);
 
 	COMPONENT counter
 	PORT
@@ -26,14 +27,16 @@ ARCHITECTURE arch OF frameCounter IS
 	);
 	END COMPONENT;
 
-BEGIN
-	counter0: counter PORT MAP(
+BEGIN	
+	Stage0: counter PORT MAP(
 		aclr 		=> 	aclr,
 		clock		=>	clk,
 		cnt_en		=>	enable,
 		data		=> "000000000000",
 		sload		=> '0',
 		updown	=> '1',
-		q			=> count
+		q			=> signal_q
 	);
+	Stage1: 
+		count <= '0' & signal_q(11 DOWNTO 1);
 END arch;
