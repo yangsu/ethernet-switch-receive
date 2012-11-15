@@ -7,7 +7,7 @@ ENTITY receive IS
 		aclr					:	IN STD_LOGIC;
 		clk25					:	IN STD_LOGIC;
 		clk50					:	IN STD_LOGIC;
-		hold					:	IN STD_LOGIC;
+		hold					:	IN STD_LOGIC
 	);
 END receive;
 
@@ -70,4 +70,4 @@ BEGIN
 		rcv_data => data_in
 	);
 
-END rcv
+END rcv;
