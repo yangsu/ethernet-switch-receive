@@ -8,11 +8,14 @@ ENTITY receive IS
 		clk25						:	IN STD_LOGIC;
 		clk50						:	IN STD_LOGIC;
 		-- hold						:	IN STD_LOGIC;
+		data_in					: BUFFER STD_LOGIC_VECTOR(3 DOWNTO 0);
+		data_in_valid		: BUFFER STD_LOGIC;
 		data_out				:	OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 		data_out_valid	:	OUT STD_LOGIC;
 		crc							:	OUT STD_LOGIC;
 		frame_length		:	OUT STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
 		receive_state		:	OUT STD_LOGIC;
+
 		hold_state			:	OUT STD_LOGIC;
 		reset_state			:	OUT STD_LOGIC
 	);
@@ -45,9 +48,6 @@ ARCHITECTURE rcv OF receive IS
 		rcv_data				: OUT	STD_LOGIC_VECTOR(3 DOWNTO 0)
 	);
 	END COMPONENT;
-
-	SIGNAL data_in				: STD_LOGIC_VECTOR(3 DOWNTO 0);
-	SIGNAL data_in_valid	: STD_LOGIC;
 
 BEGIN
 	inputProc : inputProcessor PORT MAP (
