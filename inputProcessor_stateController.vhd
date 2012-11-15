@@ -12,7 +12,8 @@ ENTITY inputProcessor_stateController IS
 		hold_count	:	IN 	STD_LOGIC_VECTOR(3 DOWNTO 0);
 		receiving		:	OUT STD_LOGIC; -- HIGH if currently in receiving state; will act as enable signal for other modules
 		reset				:	OUT STD_LOGIC; -- HIGH if transitioned into IDLE state; resets all components for next frame
-		hold				:	OUT STD_LOGIC-- HIGH if transitioned into HOLD state; must remain in state until  hold_count = 12
+		hold				:	OUT STD_LOGIC;-- HIGH if transitioned into HOLD state; must remain in state until  hold_count = 12
+		crc_check			: OUT STD_LOGIC
 	);
 END inputProcessor_stateController;
 
@@ -34,7 +35,7 @@ BEGIN
 	END PROCESS;
 
 -- Next State Logic
-	PROCESS (inputProcessor_currentState, frame_start, frame_valid, hold_count)
+	PROCESS (inputProcessor_currentState, frame_start, frame_valid, hold_count, crc_valid)
 	BEGIN
 		CASE inputProcessor_currentState IS
 			WHEN IDLE_STATE =>
@@ -65,8 +66,12 @@ BEGIN
 		receiving <= '0';
 		reset <= '0';
 		hold <= '0';
+		crc_check <= '0';
 		IF inputProcessor_currentState = RECEIVING_STATE THEN receiving <= '1';
 		ELSE receiving <= '0';
+		END IF;
+		IF inputProcessor_currentState = CRC_CHECK_STATE THEN crc_check <= '1';
+		ELSE crc_check <= '0';
 		END IF;
 		IF inputProcessor_currentState = RESET_STATE THEN reset <= '1';
 		ELSE reset <= '0';
