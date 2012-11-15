@@ -47,11 +47,9 @@ BEGIN
 				ELSE inputProcessor_nextState <= RECEIVING_STATE;
 				END IF;
 			WHEN CRC_CHECK_STATE =>
-				IF crc_valid = '1' THEN inputProcessor_nextState <= HOLD_STATE;
-				ELSE inputProcessor_nextState <= RESET_STATE;
-				END IF;
+				inputProcessor_nextState <= HOLD_STATE;
 			WHEN HOLD_STATE =>
-				if hold_count = "0110" then inputProcessor_nextState <= RESET_STATE;
+				if hold_count = "1100" then inputProcessor_nextState <= RESET_STATE;
 				ELSE inputProcessor_nextState <= HOLD_STATE;
 				END IF;
 			WHEN RESET_STATE =>

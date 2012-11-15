@@ -132,7 +132,7 @@ SIGNAL signal_next_length	:	STD_LOGIC;
 
 BEGIN
 
-	Stage1: inputProcessor_stateController PORT MAP (aclr, clk50, signal_frame_start, data_in_valid, crc_valid, signal_hold_count, signal_receiving, signal_reset, signal_hold, signal_crc_check);
+	Stage1: inputProcessor_stateController PORT MAP (aclr, clk25, signal_frame_start, data_in_valid, crc_valid, signal_hold_count, signal_receiving, signal_reset, signal_hold, signal_crc_check);
 	Stage2: sfdChecker PORT MAP (aclr OR signal_reset, clk25, data_in_valid, data_in, signal_frame_start);
 	Stage3: frameBuffer PORT MAP (aclr OR signal_reset, clk25, clk50, '1', signal_receiving, data_in, signal_data_out);
 	Stage4: crcChecker PORT MAP (aclr OR signal_reset, clk25, signal_receiving, data_in, signal_crc);
