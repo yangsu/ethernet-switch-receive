@@ -4,10 +4,17 @@ USE ieee.numeric_std.all;
 
 ENTITY receive IS
 	PORT (
-		aclr					:	IN STD_LOGIC;
-		clk25					:	IN STD_LOGIC;
-		clk50					:	IN STD_LOGIC;
-		hold					:	IN STD_LOGIC
+		aclr						:	IN STD_LOGIC;
+		clk25						:	IN STD_LOGIC;
+		clk50						:	IN STD_LOGIC;
+		-- hold						:	IN STD_LOGIC;
+		data_out				:	OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+		data_out_valid	:	OUT STD_LOGIC;
+		crc							:	OUT STD_LOGIC;
+		frame_length		:	OUT STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
+		receive_state		:	OUT STD_LOGIC;
+		hold_state			:	OUT STD_LOGIC;
+		reset_state			:	OUT STD_LOGIC
 	);
 END receive;
 
@@ -31,22 +38,17 @@ ARCHITECTURE rcv OF receive IS
 	END COMPONENT;
 
 	COMPONENT MII_to_RCV IS
-	PORT (	Clock25		: IN		STD_LOGIC;
-			Resetx		: IN		STD_LOGIC;
-			rcv_data_valid	: OUT	STD_LOGIC;
-			rcv_data	:OUT	STD_LOGIC_VECTOR(3 DOWNTO 0)
-			);
+	PORT (
+		Clock25					: IN		STD_LOGIC;
+		Resetx					: IN		STD_LOGIC;
+		rcv_data_valid	: OUT	STD_LOGIC;
+		rcv_data				: OUT	STD_LOGIC_VECTOR(3 DOWNTO 0)
+	);
 	END COMPONENT;
 
-	SIGNAL data_in					: STD_LOGIC_VECTOR(3 DOWNTO 0);
-	SIGNAL data_in_valid		: STD_LOGIC;
-	SIGNAL data_out				:	STD_LOGIC_VECTOR(7 DOWNTO 0);
-	SIGNAL data_out_valid	:	STD_LOGIC;
-	SIGNAL crc						:	STD_LOGIC;
-	SIGNAL frame_length		:	STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
-	SIGNAL receive_state	:	STD_LOGIC;
-	SIGNAL hold_state			:	STD_LOGIC;
-	SIGNAL reset_state		:	STD_LOGIC;
+	SIGNAL data_in				: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL data_in_valid	: STD_LOGIC;
+
 BEGIN
 	inputProc : inputProcessor PORT MAP (
 		aclr => aclr,
