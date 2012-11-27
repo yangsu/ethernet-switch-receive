@@ -27,6 +27,7 @@ incremental_db
 *.sof
 *.pin
 *.qws
+*.qarlog
 
 ###############
 ## Sublime Text 2
