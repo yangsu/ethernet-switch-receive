@@ -211,7 +211,7 @@ BEGIN
 	
 	last_word <= signal_shifter;
 
-	crc_valid <= '1' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '0';
+	crc_valid <= '1' WHEN (signal_shifter XOR signal_final_crc) = "11111111111111111111111111111111" ELSE '0';
 	--crc_valid <= '0' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '1';
 	crc <= crc_valid;
 	computed_crc <= signal_crc;
