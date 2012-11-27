@@ -66,6 +66,32 @@ ARCHITECTURE rcv OF receive IS
 
 	SIGNAL clk25 : STD_LOGIC;
 
+	COMPONENT imem IS
+	PORT
+		(
+			address		: IN STD_LOGIC_VECTOR (11 DOWNTO 0);
+			clken		: IN STD_LOGIC  := '1';
+			clock		: IN STD_LOGIC  := '1';
+			q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+		);
+	END COMPONENT;
+
+	COMPONENT counter IS
+		PORT
+		(
+			aclr		: IN STD_LOGIC ;
+			clock		: IN STD_LOGIC ;
+			cnt_en		: IN STD_LOGIC ;
+			data		: IN STD_LOGIC_VECTOR (11 DOWNTO 0);
+			sload		: IN STD_LOGIC ;
+			updown		: IN STD_LOGIC ;
+			q		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
+		);
+	END COMPONENT;
+
+	SIGNAL address : STD_LOGIC_VECTOR (11 DOWNTO 0);
+	SIGNAL data : STD_LOGIC_VECTOR (31 DOWNTO 0);
+
 BEGIN
 
 	div: pll PORT MAP (clk50, clk25);
@@ -93,6 +119,23 @@ BEGIN
 		Resetx => aclr,
 		rcv_data_valid => data_in_valid,
 		rcv_data => data_in
+	);
+
+	memory: imem PORT MAP (
+		address	=> address,
+		clken		=> NOT aclr,
+		clock		=> clk25,
+		q				=> data
+	);
+
+	PCCounter: counter PORT MAP (
+		aclr		=> aclr,
+		clock		=> clk25,
+		cnt_en	=> NOT aclr,
+		data		=> "000000000000",
+		sload		=> '0',
+		updown		=> '1',
+		q		=> address
 	);
 
 END rcv;
