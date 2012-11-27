@@ -5,8 +5,9 @@ USE ieee.numeric_std.all;
 ENTITY receive IS
 	PORT (
 		aclr						:	IN STD_LOGIC;
-		clk25						:	IN STD_LOGIC;
 		clk50						:	IN STD_LOGIC;
+		-- clk25						:	IN STD_LOGIC;
+		-- clk50						:	IN STD_LOGIC;
 		-- hold						:	IN STD_LOGIC;
 		data_in						:	BUFFER STD_LOGIC_VECTOR(3 DOWNTO 0);
 		data_in_valid				: 	BUFFER STD_LOGIC;
@@ -17,7 +18,7 @@ ENTITY receive IS
 		last_word					:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0); -- testing
 		frame_length				:	OUT STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
 		receive_state				:	OUT STD_LOGIC; -- testing
-		hold_state					:	OUT STD_LOGIC; -- testing 	
+		hold_state					:	OUT STD_LOGIC; -- testing
 		crc_check_state				:	OUT STD_LOGIC; -- testing
 		reset_state					:	OUT STD_LOGIC  -- testing
 	);
@@ -54,7 +55,21 @@ ARCHITECTURE rcv OF receive IS
 	);
 	END COMPONENT;
 
+
+	COMPONENT pll IS
+		PORT
+		(
+			inclk0		: IN STD_LOGIC  := '0';
+			c0		: OUT STD_LOGIC
+		);
+	END COMPONENT;
+
+	SIGNAL clk25 : STD_LOGIC;
+
 BEGIN
+
+	div: pll PORT MAP (clk50, clk25);
+
 	inputProc : inputProcessor PORT MAP (
 		aclr => aclr,
 		clk25 => clk25,
