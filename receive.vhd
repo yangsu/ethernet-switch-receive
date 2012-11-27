@@ -12,12 +12,14 @@ ENTITY receive IS
 		data_in_valid				: 	BUFFER STD_LOGIC;
 		data_out					:	OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 		data_out_valid				:	OUT STD_LOGIC;
-		crc							:	OUT STD_LOGIC;
+		crc							:	OUT STD_LOGIC; -- testing
+		computed_crc				:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0); -- testing
+		last_word					:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0); -- testing
 		frame_length				:	OUT STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
-		receive_state				:	OUT STD_LOGIC;
-		hold_state					:	OUT STD_LOGIC;		
-		crc_check_state				:	OUT STD_LOGIC;
-		reset_state					:	OUT STD_LOGIC
+		receive_state				:	OUT STD_LOGIC; -- testing
+		hold_state					:	OUT STD_LOGIC; -- testing 	
+		crc_check_state				:	OUT STD_LOGIC; -- testing
+		reset_state					:	OUT STD_LOGIC  -- testing
 	);
 END receive;
 
@@ -33,6 +35,8 @@ ARCHITECTURE rcv OF receive IS
 			data_out					:	OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 			data_out_valid				:	OUT STD_LOGIC;
 			crc							:	OUT STD_LOGIC;
+			computed_crc				:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+			last_word					:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0); -- testing
 			frame_length				:	OUT STD_LOGIC_VECTOR(11 DOWNTO 0); -- Max frame size is 1542 bytes
 			receive_state				:	OUT STD_LOGIC;
 			hold_state					:	OUT STD_LOGIC;
@@ -60,6 +64,8 @@ BEGIN
 		data_out => data_out,
 		data_out_valid => data_out_valid,
 		crc => crc,
+		computed_crc => computed_crc,
+		last_word => last_word,
 		frame_length => frame_length,
 		receive_state => receive_state,
 		hold_state => hold_state,
