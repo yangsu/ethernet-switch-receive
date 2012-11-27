@@ -37,10 +37,10 @@ SIGNAL signal_final_crc			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL signal_temp_crc1			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL signal_temp_crc2			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL signal_temp_crc3			:	STD_LOGIC_VECTOR(31 DOWNTO 0);
-SIGNAL signal_frame_counter_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0); 
---SIGNAL signal_frame_current_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0); 
---SIGNAL signal_frame_register_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0); 
-SIGNAL signal_next_length	:	STD_LOGIC; 
+SIGNAL signal_frame_counter_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
+--SIGNAL signal_frame_current_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
+--SIGNAL signal_frame_register_length	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
+SIGNAL signal_next_length	:	STD_LOGIC;
 SIGNAL signal_length_and_crc_buffer_input	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
 SIGNAL signal_length_and_crc_buffer_output	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
 SIGNAL signal_length_and_crc_register_output	:	STD_LOGIC_VECTOR(11 DOWNTO 0);
@@ -96,18 +96,18 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 				enable		:	IN STD_LOGIC;
 				count		:	OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
 	END COMPONENT;
-	
+
 	COMPONENT countdown_stateController IS
 		PORT (	aclr				:	IN 	STD_LOGIC;
 				clk					:	IN 	STD_LOGIC;
-				begin_count			:	IN 	STD_LOGIC; 
+				begin_count			:	IN 	STD_LOGIC;
 				frame_length_and_crc:	IN 	STD_LOGIC_VECTOR(11 DOWNTO 0);
 				counting			:	OUT STD_LOGIC;
 				data_out_valid		:	OUT STD_LOGIC;
-				next_length			:	OUT STD_LOGIC  
+				next_length			:	OUT STD_LOGIC
 		);
 	END COMPONENT;
-	
+
 	COMPONENT register12bit IS
 		PORT
 		(
@@ -118,7 +118,7 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 			q		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 		);
 	END COMPONENT;
-	
+
 	COMPONENT lengthBuffer IS
 		PORT
 		(
@@ -131,7 +131,7 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 			q		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 		);
 	END COMPONENT;
-	
+
 	COMPONENT frameBuffer
 		PORT (
 			aclr			:IN		STD_LOGIC;
@@ -143,8 +143,8 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 			data_out		:OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 		);
 	END COMPONENT;
-	
-	
+
+
 	COMPONENT lengthAndCrcBuffer IS
 		PORT
 		(
@@ -155,10 +155,10 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 			wrclk		: IN STD_LOGIC ;
 			wrreq		: IN STD_LOGIC ;
 			q			: OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
-			rdempty		: OUT STD_LOGIC 
+			rdempty		: OUT STD_LOGIC
 		);
 	END COMPONENT;
-	
+
 	COMPONENT computedCrcFifo IS
 		PORT
 		(
@@ -168,6 +168,15 @@ SIGNAL signal_frame_buffer_read_out		: 	STD_LOGIC;
 			rdreq		: IN STD_LOGIC ;
 			wrreq		: IN STD_LOGIC ;
 			q		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+		);
+	END COMPONENT;
+
+	COMPONENT lastWordShifter IS
+		PORT (
+			aclr			:	IN	STD_LOGIC;
+			clk				:	IN	STD_LOGIC;
+			data_in		:	IN	STD_LOGIC_VECTOR(3 DOWNTO 0);
+			data_out	:	OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
 		);
 	END COMPONENT;
 
@@ -183,10 +192,10 @@ BEGIN
 	Stage8: countdown_stateController PORT MAP (aclr, clk50, NOT signal_length_and_crc_buffer_is_empty, signal_length_and_crc_buffer_output, signal_frame_buffer_read_out, data_out_valid, signal_next_length);
 	--Stage9: register12bit PORT MAP (aclr, clk50, signal_length_and_crc_buffer_output, signal_next_length, signal_length_and_crc_register_output);
 	Stage10: lengthAndCrcBuffer PORT MAP (aclr, signal_length_and_crc_buffer_input, clk50, signal_next_length, clk50, signal_crc_check, signal_length_and_crc_buffer_output, signal_length_and_crc_buffer_is_empty);
-	Stage11: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_crc, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc1); 
-	Stage12: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc1, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc2); 
-	Stage13: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc2, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc3); 
-	Stage14: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc3, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_final_crc); 
+	Stage11: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_crc, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc1);
+	Stage12: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc1, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc2);
+	Stage13: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc2, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc3);
+	Stage14: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc3, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_final_crc);
 
 	signal_length_and_crc_buffer_input(10 DOWNTO 0) <= signal_frame_counter_length(10 DOWNTO 0);
 	signal_length_and_crc_buffer_input(11) <= crc_valid;
@@ -196,18 +205,17 @@ BEGIN
 	reset_state <= signal_reset;
 	crc_check_state <= signal_crc_check;
 
-	signal_shifter(31 DOWNTO 4) <= signal_shifter(27 DOWNTO 0);
-	signal_shifter(3 DOWNTO 0) <= data_in;
+	shifter: lastWordShifter PORT MAP (aclr, clk25, data_in, signal_shifter);
 	last_word <= signal_final_crc;
 
 	crc_valid <= '1' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '0';
 	--crc_valid <= '0' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '1';
 	crc <= crc_valid;
 	computed_crc <= signal_crc;
-	
+
 	frame_length(10 DOWNTO 0) <= signal_length_and_crc_buffer_output(10 DOWNTO 0);
 	frame_length(11) <= '0';
 	--frame_length <= signal_frame_counter_length;
 	--frame_length <= signal_length_and_crc_buffer_output;
-	
+
 END subsystem_level_design;
