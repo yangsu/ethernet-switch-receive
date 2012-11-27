@@ -26,28 +26,28 @@ ARCHITECTURE arch OF lastWordShifter IS
 	SIGNAL out0, out1, out2, out3 : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
 BEGIN
-	shifter0: fifo8dc PORT MAP (
+	shifter0: shiftReg8Bit PORT MAP (
 		aclr		=>	aclr,
 		clock		=>	clk,
 		shiftin =>	data_in(0),
 		q				=>	out0
 	);
 
-	shifter1: fifo8dc PORT MAP (
+	shifter1: shiftReg8Bit PORT MAP (
 		aclr		=>	aclr,
 		clock		=>	clk,
 		shiftin =>	data_in(1),
 		q				=>	out1
 	);
 
-	shifter2: fifo8dc PORT MAP (
+	shifter2: shiftReg8Bit PORT MAP (
 		aclr		=>	aclr,
 		clock		=>	clk,
 		shiftin =>	data_in(2),
 		q				=>	out2
 	);
 
-	shifter3: fifo8dc PORT MAP (
+	shifter3: shiftReg8Bit PORT MAP (
 		aclr		=>	aclr,
 		clock		=>	clk,
 		shiftin =>	data_in(3),

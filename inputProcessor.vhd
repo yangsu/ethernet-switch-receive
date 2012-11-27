@@ -197,6 +197,8 @@ BEGIN
 	Stage13: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc2, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_temp_crc3);
 	Stage14: computedCrcFifo PORT MAP (aclr OR signal_reset, clk25, signal_temp_crc3, data_in_valid AND signal_receiving, data_in_valid AND signal_receiving, signal_final_crc);
 
+
+
 	signal_length_and_crc_buffer_input(10 DOWNTO 0) <= signal_frame_counter_length(10 DOWNTO 0);
 	signal_length_and_crc_buffer_input(11) <= crc_valid;
 
@@ -206,7 +208,8 @@ BEGIN
 	crc_check_state <= signal_crc_check;
 
 	shifter: lastWordShifter PORT MAP (aclr, clk25, data_in, signal_shifter);
-	last_word <= signal_final_crc;
+	
+	last_word <= signal_shifter;
 
 	crc_valid <= '1' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '0';
 	--crc_valid <= '0' WHEN (signal_shifter XOR signal_crc) = "11111111111111111111111111111111" ELSE '1';
