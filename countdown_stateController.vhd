@@ -7,8 +7,9 @@ ENTITY countdown_stateController IS
 		aclr				:	IN 	STD_LOGIC;
 		clk					:	IN 	STD_LOGIC;
 		begin_count			:	IN 	STD_LOGIC; 
-		frame_length		:	IN 	STD_LOGIC_VECTOR(11 DOWNTO 0);
+		frame_length_and_crc:	IN 	STD_LOGIC_VECTOR(11 DOWNTO 0);
 		counting			:	OUT STD_LOGIC;
+		data_out_valid		:	OUT STD_LOGIC;
 		next_length			:	OUT STD_LOGIC  
 	);
 END countdown_stateController;
@@ -20,6 +21,7 @@ SIGNAL countdown_currentState, countdown_nextState	:	countdownState;
 
 SIGNAL signal_loadNext : STD_LOGIC;
 SIGNAL signal_count : STD_LOGIC;
+SIGNAL signal_pre_count : STD_LOGIC;
 SIGNAL signal_currentCount : STD_LOGIC_VECTOR(11 DOWNTO 0);
 
 	COMPONENT countdownCounter IS
@@ -61,6 +63,7 @@ BEGIN
 				IF signal_currentCount = "000000000001" THEN countdown_nextState <= IDLE_STATE;
 				ELSE countdown_nextState <= COUNTING_STATE;
 				END IF;
+			
 		END CASE;
 	END PROCESS;
 
@@ -69,26 +72,32 @@ BEGIN
 	BEGIN
 		-- Default values
 		signal_count <= '0';
+		signal_pre_count <= '0';
 		signal_loadNext <= '0';
 		next_length <= '0';
-		
-		IF countdown_currentState = POP_STATE THEN next_length <= '1';
-		ELSE next_length <= '0';
-		END IF;
 		
 		IF countdown_currentState = LOAD_STATE THEN signal_loadNext <= '1';
 		ELSE signal_loadNext <= '0';
 		END IF;
 		
+		IF countdown_currentState = LOAD_STATE THEN signal_pre_count <= '1';
+		ELSE signal_pre_count <= '0';
+		END IF;
+		
 		IF countdown_currentState = COUNTING_STATE THEN signal_count <= '1';
 		ELSE signal_count <= '0';
+		END IF;
+		
+		IF countdown_currentState = POP_STATE THEN next_length <= '1';
+		ELSE next_length <= '0';
 		END IF;
 
 	END PROCESS;
 
 -- OTHER	
-	stage0: countdownCounter PORT MAP (aclr, clk, signal_count, frame_length, signal_loadNext, signal_currentCount);
-	stage1: counting <= signal_count;
+	stage0: countdownCounter PORT MAP (aclr, clk, signal_count, "0" & frame_length_and_crc(10 DOWNTO 0), signal_loadNext, signal_currentCount);
+	stage1: counting <= signal_count OR signal_pre_count;
+	stage2: data_out_valid <= frame_length_and_crc(11) AND signal_count;
 
 END state; 
 
