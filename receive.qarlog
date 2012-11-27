@@ -1,0 +1,74 @@
+Quartus II Archive log --	//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receive.qarlog
+
+Archive:	//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receive.qar
+Date:		Mon Nov 26 23:58:31 2012
+Quartus II		9.1 Build 350 03/24/2010 SP 2 SJ Web Edition
+
+	=========== Files Selected: ===========
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/MII_to_RCV.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/cntr12bit.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcFifo.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcFifo.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcFifo.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcShifter.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcShifter.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/computedCrcShifter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/countdownCounter.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/countdownCounter.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/countdownCounter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/countdown_stateController.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/countdown_stateController_test.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/counter.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/counter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/crcChecker.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/crcChecker_test.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/db/receive.sim.cvwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/fifo12bits.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/fifo8bits.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/fifo8dc.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/fifo8dc.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/forwardInterface.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/forward_interface.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/frameBuffer.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/frameBuffer.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/frameCounter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/framemem.mif
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/framemem.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/holdCounter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/holdCounter.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/inputProcessor.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/inputProcessorTest.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/inputProcessor_stateController.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/inputProcessor_stateController_test.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/interface_controller.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/interface_controller.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lastWordShifter.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthAndCrcBuffer.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthAndCrcBuffer.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthAndCrcBuffer.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthBuffer.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthBuffer.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/lengthBuffer.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/pll.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receive.qpf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receive.qsf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receive.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/receiveTest.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/register12bit.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/register12bit.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/register12bit.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/sfdChecker.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/sfdChecker_test.vwf
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg2bit.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg2bit.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg2bit.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg4bit.cmp
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg4bit.qip
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg4bit.vhd
+//vmware-host/Shared Folders/Ashley On My Mac/Dev/ethernet-switch-receive/shiftReg8Bit.vhd
+Z:/Ashley On My Mac/Dev/ethernet-switch-receive/receive.dpf
+c:/altera/91sp2/quartus/bin/assignment_defaults.qdf
+	======= Total: 63 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

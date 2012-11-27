@@ -10,6 +10,7 @@ ENTITY receive IS
 		-- hold						:	IN STD_LOGIC;
 		data_in						:	BUFFER STD_LOGIC_VECTOR(3 DOWNTO 0);
 		data_in_valid				: 	BUFFER STD_LOGIC;
+		send_new_frame				:	IN STD_LOGIC; -- testing
 		data_out					:	OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 		data_out_valid				:	OUT STD_LOGIC;
 		crc							:	OUT STD_LOGIC; -- testing
@@ -75,7 +76,7 @@ BEGIN
 
 	physim: MII_to_RCV PORT MAP (
 		Clock25 => clk25,
-		Resetx => aclr,
+		Resetx => aclr OR send_new_frame,
 		rcv_data_valid => data_in_valid,
 		rcv_data => data_in
 	);
